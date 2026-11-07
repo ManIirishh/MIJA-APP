@@ -3,7 +3,7 @@
   "appName": "MIJA APP",
   "webDir": "www",
   "server": {
-    "url": "https://mijapp.netlify.app",
+    "url": "https://manlirishh.github.io/MIJA-APP",
     "cleartext": false
   },
   "android": {
