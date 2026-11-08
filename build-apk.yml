@@ -35,6 +35,9 @@ jobs:
       - name: Add Android platform
         run: npx cap add android
 
+      - name: Sync Capacitor
+        run: npx cap sync android
+
       - name: Set app icon
         run: |
           pip install Pillow --break-system-packages -q
@@ -52,9 +55,6 @@ jobs:
           EOF
           rm -f android/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml
           rm -f android/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml
-
-      - name: Sync Capacitor
-        run: npx cap sync android
 
       - name: Make gradlew executable
         run: chmod +x android/gradlew
