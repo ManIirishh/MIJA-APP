@@ -52,9 +52,29 @@ jobs:
               r = img.resize((size, size), Image.LANCZOS)
               r.save(f"{path}/ic_launcher.png")
               r.save(f"{path}/ic_launcher_round.png")
+              r.save(f"{path}/ic_launcher_foreground.png")
+          big = img.resize((1024, 1024), Image.LANCZOS)
+          path = "android/app/src/main/res/mipmap-anydpi-v26"
+          os.makedirs(path, exist_ok=True)
+          big.save(f"{path}/ic_launcher_foreground.png")
           EOF
-          rm -f android/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml
-          rm -f android/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml
+          cat > android/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml << 'XMLEOF'
+          <?xml version="1.0" encoding="utf-8"?>
+          <adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+              <background android:drawable="@color/ic_launcher_background"/>
+              <foreground android:drawable="@mipmap/ic_launcher_foreground"/>
+          </adaptive-icon>
+          XMLEOF
+          cat > android/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml << 'XMLEOF'
+          <?xml version="1.0" encoding="utf-8"?>
+          <adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+              <background android:drawable="@color/ic_launcher_background"/>
+              <foreground android:drawable="@mipmap/ic_launcher_foreground"/>
+          </adaptive-icon>
+          XMLEOF
+          mkdir -p android/app/src/main/res/values
+          grep -q "ic_launcher_background" android/app/src/main/res/values/colors.xml 2>/dev/null || \
+          echo '<resources><color name="ic_launcher_background">#FFFFFF</color></resources>' > android/app/src/main/res/values/ic_launcher_colors.xml
 
       - name: Make gradlew executable
         run: chmod +x android/gradlew
