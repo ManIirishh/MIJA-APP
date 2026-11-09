@@ -27,10 +27,8 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Create www directory with index.html
-        run: |
-          mkdir -p www
-          echo '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>MIJA APP</title></head><body><p>Loading...</p></body></html>' > www/index.html
+      - name: Ensure www directory exists
+        run: mkdir -p www
 
       - name: Add Android platform
         run: npx cap add android
