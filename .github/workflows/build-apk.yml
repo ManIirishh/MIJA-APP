@@ -27,8 +27,8 @@ jobs:
       - name: Install dependencies
         run: npm install --legacy-peer-deps
 
-      - name: Build Web Assets & Copy to Android
-        run: npx cap copy android
+      - name: Copy Web Assets to Android
+        run: node ./node_modules/@capacitor/cli/bin/capacitor copy android
 
       - name: Make gradlew executable
         run: chmod +x android/gradlew
